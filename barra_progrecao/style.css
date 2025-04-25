@@ -1,0 +1,41 @@
+*{
+    box-sizing: border-box;
+    font-family: Helvetica;
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    width: 500px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+h1{
+    text-align: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-control{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+label {
+    font-weight: bold;
+}
+
+input,
+textarea {
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+

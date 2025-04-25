@@ -1,0 +1,9 @@
+JSON:
+
+[ {   "id":1,   "nome": "Alice",    "age": 23}, {   "id":2,     "nome": "Bob", "age": 22}]
+
+CSV:
+
+id,name,age
+1,Alice,23
+2,Bob,2

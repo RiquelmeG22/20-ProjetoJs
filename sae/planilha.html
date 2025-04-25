@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Planilha Interativa da Fazenda</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #eef2f3;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #fff;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ccc;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #2c3e50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f7f7f7;
+    }
+
+    td[contenteditable="true"] {
+      background-color: #fefecd;
+      cursor: text;
+    }
+
+    .form-container {
+      margin-top: 30px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    .input-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .input-row input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    /* Tamanhos personalizados */
+    .numero {
+      width: 150px;
+    }
+
+    .arroba {
+      width: 100px;
+    }
+
+    .texto-medio {
+      width: 200px;
+    }
+
+    .texto-grande {
+      flex: 2;
+      min-width: 300px;
+    }
+
+    button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1a252f;
+    }
+
+    .btn-small {
+      padding: 5px 10px;
+      font-size: 0.9em;
+    }
+
+    .acoes {
+      display: flex;
+      gap: 5px;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Planilha Interativa da Fazenda</h1>
+
+  <table id="tabelaFazenda">
+    <thead>
+      <tr>
+        <th>Valor Pago (R$)</th>
+        <th>Peso de Chegada (kg)</th>
+        <th>Peso de Saída (kg)</th>
+        <th>Frete (R$)</th>
+        <th>Arroba do Dia (R$)</th>
+        <th>Vacina</th>
+        <th>Observação</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <div class="form-container">
+    <h3>Inserir novo registro</h3>
+    <div class="input-row">
+      <input type="number" id="valorPago" class="numero" placeholder="Valor Pago (R$)">
+      <input type="number" id="pesoChegada" class="numero" placeholder="Peso de Chegada (kg)">
+      <input type="number" id="pesoSaida" class="numero" placeholder="Peso de Saída (kg)">
+      <input type="number" id="frete" class="numero" placeholder="Frete (R$)">
+      <input type="number" id="arrobaDia" class="arroba" placeholder="Arroba do Dia (R$)">
+      <input type="text" id="vacina" class="texto-medio" placeholder="Vacina">
+      <input type="text" id="observacao" class="texto-grande" placeholder="Observação">
+    </div>
+    <button onclick="inserirRegistro()">Inserir Registro</button>
+  </div>
+
+  <script>
+    function inserirRegistro() {
+      const valorPago = document.getElementById('valorPago').value;
+      const pesoChegada = document.getElementById('pesoChegada').value;
+      const pesoSaida = document.getElementById('pesoSaida').value;
+      const frete = document.getElementById('frete').value;
+      const arrobaDia = document.getElementById('arrobaDia').value;
+      const vacina = document.getElementById('vacina').value;
+      const observacao = document.getElementById('observacao').value;
+
+      if (!valorPago || !pesoChegada || !pesoSaida || !frete || !arrobaDia) {
+        alert("Por favor, preencha todos os campos numéricos.");
+        return;
+      }
+
+      const tabela = document.getElementById('tabelaFazenda').getElementsByTagName('tbody')[0];
+      const novaLinha = tabela.insertRow();
+
+      const dados = [valorPago, pesoChegada, pesoSaida, frete, arrobaDia, vacina, observacao];
+
+      dados.forEach((valor, index) => {
+        const celula = novaLinha.insertCell();
+        celula.textContent = valor;
+        celula.setAttribute("contenteditable", "true");
+        if (index === 6) celula.classList.add("obs");
+      });
+
+      const celulaAcoes = novaLinha.insertCell();
+      celulaAcoes.classList.add("acoes");
+      celulaAcoes.innerHTML = `
+        <button class="btn-small" onclick="editarLinha(this)">Editar</button>
+        <button class="btn-small" onclick="excluirLinha(this)">Excluir</button>
+      `;
+
+      document.getElementById('valorPago').value = '';
+      document.getElementById('pesoChegada').value = '';
+      document.getElementById('pesoSaida').value = '';
+      document.getElementById('frete').value = '';
+      document.getElementById('arrobaDia').value = '';
+      document.getElementById('vacina').value = '';
+      document.getElementById('observacao').value = '';
+    }
+
+    function excluirLinha(botao) {
+      const linha = botao.parentElement.parentElement;
+      linha.remove();
+    }
+
+    function editarLinha(botao) {
+      const linha = botao.parentElement.parentElement;
+      const celulas = linha.querySelectorAll("td:not(.acoes)");
+
+      celulas.forEach(celula => {
+        celula.setAttribute("contenteditable", "true");
+        celula.style.backgroundColor = "#fefecd";
+      });
+
+      alert("Você pode editar os campos diretamente. As alterações são salvas automaticamente.");
+    }
+  </script>
+
+</body>
+</html>
