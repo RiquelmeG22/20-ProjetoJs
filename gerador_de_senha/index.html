@@ -18,7 +18,7 @@
             </div>
         </div>
             <div id="register-form">
-                <h2>Crie su conta:</h2>
+                <h2>Crie sua conta:</h2>
                 <p>Registere-se para ultilizar as funcionalidades do sistema</p>
                 <div class="form-control">
                     <label for="name">Nome</label>
@@ -26,26 +26,55 @@
                 </div>
                 <div class="form-control">
                     <label for="email">E-mail</label>
-                    <input type="email" type="email" id="email" placeholder="Digite seu nome">
+                    <input type="text" 
+                    type="email"
+                    id="email"
+                    placeholder="Digite seu nome">
                 </div>
                 <div class="form-control">
                     <label for="passaword">Senha</label>
-                    <input type="text" type="passaword" id="passaword" placeholder="Digite seu senha">
+                    <input type="text"
+                     type="passaword" 
+                     id="passaword"
+                     placeholder="Digite seu senha">
+                </div>
                     <p>
                         Quer ajuda para criar uma senha segura?
-                         <span id="generate-passaword">Clique aqui.</span>
+                        <span id="open-generate-passaword">Clique aqui.</span>
                     </p>
-                    <div id="generated-password">
-                        <p>Aqui esta sua senha:</p>
-                        <h4></h4>
+                    <div id="generate-options">
+                        <p>Selecione as opçõs que você deseja</p>
+                        <div class="form-control">
+                            <label for="length">Quantidade de caracteres:</label>
+                            <input type="text" id="length" name="length" value="10">
+                        </div>
+                        <div class="form-control">
+                            <label for="letters">Letras:</label>
+                            <input type="checkbox" id="length" name="length" checked>
+                        </div>
+                        <div class="form-control">
+                            <label for="numbers">Números:</label>
+                            <input type="checkbox" id="length" name="length" checked>
+                        </div>
+                        <div class="form-control">
+                            <label for="symbol">Símbolos</label>
+                            <input type="checkbox" id="length" name="length" checked>
+                        </div>
                     </div>
-                </div>
+                    <div class="generated-password">
+                        <p>Aqui esta a sua senha:</p>
+                        <h4></h4>
+                        <button id="copy-password">Copiar</button>
+                    </div>           
                 <div class="form-control">
                     <label for="name">Confirmação de Senha</label>
-                    <input type="text" name="confirmpassword" id="confirmpassword" placeholder="Confirme sua senha">
+                    <input type="text"
+                    name="confirmpassword"
+                    id="confirmpassword"
+                    placeholder="Confirme sua senha">
                 </div>
                 <input type="submit" value="Cadastrar">
-            </div>
+            </div>    
     </div>
 </body>
 </html>
