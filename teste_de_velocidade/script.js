@@ -3,7 +3,7 @@ const entrada = document.querySelector("#entrada")
 const resultado = document.querySelector(".resultado")
 const reiniciar = document.querySelector("#reiniciar")
 const historico = document.querySelector("#historico")
-const alternarTema = document.querySelector("#alternarTema")
+const alternarTemaBtn = document.querySelector("#alternarTema")
 
 const textos = [
     "Exemplo de texto para digitar",
@@ -42,12 +42,41 @@ function verificar () {
 
     resultado.textContent = `Parabéns Você levou${tempoGasto} segundos!`;
 
+    adicionarAoHistorico(texto.textContent, tempoGasto);
+
     localStorage.setItem("testeEmAndamento", false);
     entrada.value = "";
     novoTexto();
 }
 
+function adicionarAoHistorico(textoDigitado, tempoGasto) {
+    const itemHistorico = document.createElement("p")
+
+    itemHistorico.textContent = `Texto "${textoDigitado}" - Tempo: ${tempoGasto} segundos `
+
+    historico.appendChild(itemHistorico);
+}
+
+function reiniciarTeste() {
+    
+    entrada.value = ""
+    resultado.textContent = ""
+    novoTexto()
+    localStorage.setItem("testeEmAndamento", false)
+    historico.innerHTML = "";
+
+}
+
+function alternarTema() {
+    const body = document.body
+
+    body.classList.toggle("claro");
+    body.classList.toggle("escuro");
+}
+
 entrada.addEventListener("keyup", atualizarTeste);
+reiniciar.addEventListener("click", reiniciarTeste);
+alternarTemaBtn.addEventListener("click",alternarTema);
 
 novoTexto();
 
